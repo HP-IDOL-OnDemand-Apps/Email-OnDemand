@@ -136,6 +136,6 @@ PORT will be 3333 by default but if you have changed it, reflect the propriate v
 
 # Resource Contact List
 
-| Name | Resource Email |
-| --- | --- |
-| Kiri4a | kiri4a@gmail.com |
+| Name |
+| --- | 
+| Kiri4a |
