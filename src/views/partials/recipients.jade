@@ -1,0 +1,33 @@
+ul.list-group
+    a.pull-right(href="/purge")
+        i.fa.fa-refresh
+        |  Refresh
+    br.clearfix
+    li.list-group-item(ng-repeat="(Store, Users) in Tree")
+        .checkbox
+            label.lead
+                input(
+                    type="checkbox",
+                    ng-disabled="!Users.length",
+                    ng-model="Group",
+                    ng-click="toggleAll(Store, Group)"
+                )
+                i.fa.fa-database(ng-class="{halfVisible:!Users.length}") &nbsp;
+                strong(ng-class="{halfVisible:!Users.length}")
+                    | {{Store}} <em class="halfVisible">({{Users.length}})</em>&nbsp;
+            a(href="")
+                i.fa(
+                    ng-class="{'fa-chevron-down': !isActive, 'fa-chevron-up': isActive, hidden:!Users.length}",
+                    ng-init="isActive=false",
+                    ng-click="isActive = !isActive"
+                )
+        ul.list-group(ng-class="{hidden: !isActive}")
+            li.list-group-item.condensed(ng-repeat="Email in Users")
+                .checkbox
+                    label
+                        input(
+                            type="checkbox",
+                            checklist-model="Selection[Store]",
+                            checklist-value="Email"
+                        )
+                        | {{Email}}

@@ -1,0 +1,38 @@
+.ta-root .btn-toolbar .btn-group {
+    margin-bottom: 10px;
+}
+
+.halfVisible {
+    opacity: 0.5;
+}
+
+.condensed {
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.paddedTop {
+    padding-top: 20px;
+}
+
+.vendor-logo {
+    height: 20px;
+}
+
+.line-through {
+    text-decoration: line-through;
+}
+
+.hr-condensed {
+    margin-bottom: 10px;
+}
+
+html {
+    overflow-y: scroll;
+}
+
+@media (max-width: 768px) {
+    html {
+        overflow-y: auto;
+    }
+}

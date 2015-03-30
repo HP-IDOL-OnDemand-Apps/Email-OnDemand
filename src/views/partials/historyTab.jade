@@ -1,0 +1,28 @@
+br
+.row-fluid
+    .panel.panel-default
+        .panel-heading
+            h4
+                i.fa.fa-history
+                |  Message History.
+        .panel-body
+            p Listing last 10 sent messages.
+                a.pull-right(href="", ng-if="History", ng-click="refresh()")
+                    i.fa.fa-refresh
+                    |  Refresh
+            i.fa.fa-circle-o-notch.fa-spin.fa-2x(ng-if="fetching")
+            .table-responsive(ng-if="History.length")
+                table.table.table-hover
+                    thead
+                        tr
+                            th #
+                            th To
+                            th Date
+                            th Status
+                    tbody
+                        tr(ng-repeat="msg in History")
+                            th {{$index+1}}
+                            td {{msg.ToEmail}}
+                            td {{msg.ArrivalTs | date:'medium'}}
+                            td {{msg.Status}}
+.clearfix

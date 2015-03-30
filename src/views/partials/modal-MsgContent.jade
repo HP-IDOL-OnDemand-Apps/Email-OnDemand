@@ -1,0 +1,6 @@
+script(type='text/ng-template', id="modal-MsgContent.html")
+    .modal-header
+        h3.modal-title {{Match.title}}
+    .modal-body
+        p <strong>Reference:</strong> {{Match.reference}}
+        div.well.well-lg(ng-bind-html="Match.content")

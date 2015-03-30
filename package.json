@@ -1,0 +1,27 @@
+{
+    "name": "emailondemand",
+    "version": "0.1.0",
+    "description": "Email services for IDOL OnDemand.",
+    "main": "./src/server.js",
+    "scripts": {
+        "start": "node ./src/server.js"
+    },
+    "author": "TCCODER",
+    "license": "MIT",
+    "dependencies": {
+        "body-parser": "^1.11.0",
+        "cors": "^2.5.3",
+        "dotenv": "^0.5.1",
+        "express": "^4.11.2",
+        "express-session": "^1.10.2",
+        "helmet": "^0.6.0",
+        "heroku-ssl-redirect": "0.0.2",
+        "idol-client": "^0.2.1",
+        "jade": "^1.9.2",
+        "lodash": "^3.2.0",
+        "multer": "^0.1.7",
+        "superagent": "visionmedia/superagent",
+        "winston": "^0.9.0"
+    },
+    "devDependencies": {}
+}

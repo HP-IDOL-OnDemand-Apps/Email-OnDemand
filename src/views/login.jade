@@ -1,0 +1,42 @@
+
+extends structure/layout-custom
+
+block head
+    title Email OnDemand :: Login
+
+block content
+    .container(
+        ng-controller="LoginCtrl"
+    )
+        .page-header
+            h1
+                | Login
+                br
+                small
+                    | to&nbsp;
+                    i.fa.fa-envelope.fa-2x(title="Email")
+                    |  OnDemand
+            small
+                | Email services for Your IDOL OnDemand in just&nbsp;
+                span.label.label-info 3
+                |  easy steps.
+        form(name="LoginForm", ng-submit="login()")
+            .form-group(ng-class="{'has-error':LoginForm.Email.$invalid}")
+                label(for='Email') Email address
+                input#Email.form-control(type='email', name="Email", placeholder='Enter email', ng-model="Email", required)
+            .form-group(ng-class="{'has-error':LoginForm.Password.$invalid}")
+                label(for='Password') Password
+                input#Password.form-control(type='password', name="Password", placeholder='Password', ng-model="Password", required)
+            .alert.alert-warning(role="alert", ng-if="logerror") {{logerror}}
+            input.hidden(type="submit")
+            a.btn.btn-primary(role='button', ng-click="login()", ng-class="{disabled:LoginForm.$invalid || logging}")
+                i.fa.fa-circle-o-notch.fa-spin(ng-if="logging")
+                i.fa.fa-check(ng-if="logged")
+                span(ng-if="!logged")  Login
+                span(ng-if="logged")  Thank You!
+
+block scripts
+    // Angular
+    script(src="js/vendors/angular.min.js")
+    // App
+    script(src="js/controllers/EmailOnDemand.Login.js")

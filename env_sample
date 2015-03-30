@@ -1,0 +1,12 @@
+# IDOL
+IDOL_API_KEY=<Your IDOL api key>
+
+# Mailjet
+MAILJET_API_KEY=<Your mailjet api key>
+MAILJET_SECRET_KEY=<Your mailjet secret key>
+
+# Optional variables
+# ------------------
+APP_USERS_IDOL_STORE=<The name of the user store to use for login. Defaults to 'emailondemand'!>
+APP_EMAILS_IDOL_INDEX=<The name of the text index where to store indexed email. Defaults to 'emailondemand'!>
+NODE_ENV=<debug, production etc. Defaults to 'debug'!>

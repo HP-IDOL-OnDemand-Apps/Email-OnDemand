@@ -1,0 +1,129 @@
+br
+.row-fluid
+    .panel.panel-default
+        .panel-heading
+            h4
+                i.fa.fa-users
+                |  Select recipients.
+        .panel-body
+            include recipients
+.clearfix
+.row-fluid
+    .panel.panel-default
+        .panel-heading
+            h4
+                i.fa.fa-pencil
+                |  Create email.
+        .panel-body
+            .form-group(ng-class="{'has-error':!Sender}")
+                label(for='Sender') From
+                input.form-control(
+                    type="email", name="Sender", placeholder="Sender email",
+                    ng-model="Sender", ng-init="Sender='#{user.data.user}'"
+                )
+            .form-group(ng-class="{'has-error':!Subject}")
+                label(for='Subject') Subject
+                input.form-control(type="text", name="Subject", placeholder="Subject text", ng-model="Subject")
+            .form-group
+                label Gather content and add to the editor
+                tabset
+                    p.help-block.pull-right.hidden-xs Powered by the&nbsp;
+                        a(href="https://www.idolondemand.com/developer/apis/extracttext#overview" target="_balnk")
+                            | Text Extraction API.
+                    tab(heading="file")
+                        .input-group.paddedTop
+                            input#fromFile.form-control(
+                                type="file"
+                            )
+                            span.input-group-btn
+                                button.btn.btn-default(
+                                    ng-click="gatherContent('file')"
+                                ) Go!
+                        p.help-block See&nbsp;
+                            a(
+                                href="https://www.idolondemand.com/developer/docs/SupportedFormats.html",
+                                target="_blank"
+                            ) IDOL's supported formats
+                            |  about the View API for more info.
+                    tab(heading="reference")
+                        .input-group.paddedTop
+                            input.form-control(
+                                type="text",
+                                placeholder="An IDOL OnDemand reference",
+                                ng-model="fromRef"
+                            )
+                            span.input-group-btn
+                                button.btn.btn-default(ng-click="gatherContent('reference', fromRef)", ng-disabled="!fromRef") Go!
+                    tab(heading="url")
+                        .input-group.paddedTop
+                            input.form-control(
+                                type="url",
+                                placeholder="A publicly accessible HTTP URL from which the document can be retrieved.",
+                                ng-model="fromUrl"
+                            )
+                            span.input-group-btn
+                                button.btn.btn-default(ng-click="gatherContent('url', fromUrl)", ng-disabled="!fromUrl") Go!
+                div(ng-controller="GatherAlertsCtrl")
+                    p.paddedTop(ng-if="alerts.length")
+                    alert(ng-repeat="alert in alerts", type="{{alert.type}}", close="closeAlert($index)" )
+                        span(ng-bind-html="alert.msg")
+                hr
+            .form-group
+                label Preview and edit
+                div(text-angular, placeholder="Type some content...", ng-model="htmlContent")
+            .form-group
+                label Attach files
+                p.help-blick Sum of all attachments may not exceed 15 MB total!
+                .input-group(ng-repeat="file in attachedFiles track by $index")
+                    input.form-control(
+                        type="file",
+                        id="attached{{$index}}"
+                    )
+                    span.input-group-btn
+                        button.btn.btn-default(ng-click="removeFileInput($index)")
+                            i.fa.fa-trash-o
+                a.paddedTop.pull-right(href="", ng-click="addFileInput()")
+                    i.fa.fa-plus.fa-lg.fa-border
+.clearfix
+.row-fluid
+    .panel.panel-default
+        .panel-heading
+            h4
+                i.fa.fa-rocket
+                |  Send it!
+        .panel-body
+            u
+                strong To Do List:
+            ul.fa-ul
+                li
+                    i.fa-li.fa(ng-class="{'fa-check-square text-success':Recipients_cnt, 'fa-exclamation-triangle text-warning':!Recipients_cnt}")
+                    span(ng-class="{'line-through':Recipients_cnt}") Select recipients.
+                li
+                    i.fa-li.fa(ng-class="{'fa-check-square text-success':Sender, 'fa-exclamation-triangle text-warning':!Sender}")
+                    span(ng-class="{'line-through':Sender}") Define sender.
+                li
+                    i.fa-li.fa(ng-class="{'fa-check-square text-success':Subject, 'fa-exclamation-triangle text-warning':!Subject}")
+                    span(ng-class="{'line-through':Subject}") Add subject.
+                li
+                    i.fa-li.fa(ng-class="{'fa-check-square text-success':htmlContent, 'fa-exclamation-triangle text-warning':!htmlContent}")
+                    span(ng-class="{'line-through':htmlContent}") Add content.
+            p.text-info(ng-if="(Recipients_cnt && htmlContent && Sender && Subject)")
+                | Sending to {{Recipients_cnt}} recipient[s] as: <strong>{{Sender}}</strong>!
+            .checkbox
+                label
+                    input(
+                        type="checkbox",
+                        ng-model="addToIndex"
+                    )
+                    | Index this message.
+            div(ng-controller="SendAlertsCtrl")
+                alert(ng-repeat="alert in alerts", type="{{alert.type}}", close="closeAlert($index)")
+                    span(ng-bind-html="alert.msg")
+            a.btn.btn-primary(
+                ng-click="Send()",
+                ng-class="{disabled:(!Recipients_cnt || !htmlContent || !Sender || !Subject || sending)}"
+            )
+                i.fa.fa-paper-plane-o(ng-if="!sending")
+                i.fa.fa-circle-o-notch.fa-spin(ng-if="sending")
+                |  Send
+.clearfix

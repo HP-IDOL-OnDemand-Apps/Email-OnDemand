@@ -1,0 +1,38 @@
+br
+.row-fluid
+    .panel.panel-default
+        .panel-heading
+            h4
+                i.fa.fa-search
+                |  Search in indexed messages.
+        .panel-body
+            form(name="SearchForm", ng-submit="search()")
+                .form-group(ng-class="{'has-error':!TheQuery}")
+                    label(for='TheQuery') Text query
+                    div.input-group
+                        input.form-control(type="text", name="TheQuery", placeholder="The query text", ng-model="TheQuery" required)
+                        span.input-group-btn
+                            button.btn.btn-default(type="button", ng-disabled="!TheQuery || searching", ng-click="search()") Go!
+            i.fa.fa-circle-o-notch.fa-spin.fa-2x(ng-if="searching")
+            p(ng-if="FoundData.length") Found {{FoundData.length}} results.
+            .table-responsive(ng-if="FoundData.length")
+                table.table.table-hover
+                    thead
+                        tr
+                            th #
+                            th Score
+                            th Title
+                            th Sender
+                            th To
+                            th.text-center Content
+                    tbody
+                        tr(ng-repeat="row in FoundData")
+                            th {{$index+1}}
+                            td {{row.weight}}
+                            td {{row.title}}
+                            td {{row.sender[0]}}
+                            td {{row.recipients.join(', ')}}
+                            td.text-center
+                                a(href="", ng-click="showContent($index)")
+                                    i.fa.fa-eye
+.clearfix
