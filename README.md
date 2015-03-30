@@ -130,7 +130,7 @@ To use login with:
 
 To test locally make sure you have completed steps 2-4 and then navigate with your browser to:
 
-http://localhost:<PORT>
+`http://localhost:<PORT>`
 
 PORT will be 3333 by default but if you have changed it, reflect the propriate value above!
 
